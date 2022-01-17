@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer un compte{% endblock %}
+
+{% block body %}
+<h1>Créer un compte</h1>
+{{ form(registrationForm) }}
+
+<p>Vous avez déjà un compte ? <a href="{{ path('app_login') }}">Connectez-vous !</a></p>
+{% endblock %}
