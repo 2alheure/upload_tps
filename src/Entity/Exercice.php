@@ -18,45 +18,39 @@ class Exercice
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text", nullable=true)
      */
-    private $module;
-
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $subject;
+    private $subjectFile;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $comment;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $subjectLink;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Module::class, inversedBy="exercices")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $module;
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getModule(): ?string
+    public function getSubjectFile(): ?string
     {
-        return $this->module;
+        return $this->subjectFile;
     }
 
-    public function setModule(string $module): self
+    public function setSubjectFile(string $subjectFile): self
     {
-        $this->module = $module;
-
-        return $this;
-    }
-
-    public function getSubject(): ?string
-    {
-        return $this->subject;
-    }
-
-    public function setSubject(string $subject): self
-    {
-        $this->subject = $subject;
+        $this->subjectFile = $subjectFile;
 
         return $this;
     }
@@ -69,6 +63,30 @@ class Exercice
     public function setComment(?string $comment): self
     {
         $this->comment = $comment;
+
+        return $this;
+    }
+
+    public function getSubjectLink(): ?string
+    {
+        return $this->subjectLink;
+    }
+
+    public function setSubjectLink(?string $subjectLink): self
+    {
+        $this->subjectLink = $subjectLink;
+
+        return $this;
+    }
+
+    public function getModule(): ?Module
+    {
+        return $this->module;
+    }
+
+    public function setModule(?Module $module): self
+    {
+        $this->module = $module;
 
         return $this;
     }
