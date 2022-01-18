@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Render{% endblock %}
+
+{% block body %}
+    <h1>Create new Render</h1>
+
+    {{ include('render/_form.html.twig') }}
+
+    <a href="{{ path('render_index') }}">back to list</a>
+{% endblock %}

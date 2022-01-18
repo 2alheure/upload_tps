@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Render index{% endblock %}
+
+{% block body %}
+<h1>Render index</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Promotion</th>
+            <th>TP</th>
+            <th>Module</th>
+            <th>DateBegin</th>
+            <th>DateEnd</th>
+            <th>actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for render in renders %}
+        <tr>
+            <td>{{ render.id }}</td>
+            <td>{{ render.promo.name }}</td>
+            <td>{{ render.exercice.name }}</td>
+            <td>{{ render.module.name }}</td>
+            <td>{{ render.dateBegin ? render.dateBegin|date('Y-m-d H:i:s') : '' }}</td>
+            <td>{{ render.dateEnd ? render.dateEnd|date('Y-m-d H:i:s') : '' }}</td>
+            <td>
+                <a href="{{ path('render_show', {'id': render.id}) }}">show</a>
+                <a href="{{ path('render_edit', {'id': render.id}) }}">edit</a>
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="4">no records found</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{{ path('render_new') }}">Create new</a>
+{% endblock %}

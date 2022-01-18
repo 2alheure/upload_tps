@@ -35,4 +35,37 @@
 <a href="{{ path('promo_edit', {'id': promo.id}) }}">edit</a>
 
 {{ include('promo/_delete_form.html.twig') }}
+
+<h2>Leurs TPs</h2>
+
+<p><a href="{{path('render_new', {'id': promo.id}) }}">Ajouter un TP</a></p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Module</th>
+            <th>Début</th>
+            <th>Fin</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        {% for render in promo.renders %}
+
+        <tr>
+            <td>{{ render.exercice.name }}</td>
+            <td>{{ render.exercice.module.name }}</td>
+            <td>{{ render.dateBegin ? render.dateBegin|date('d/m/Y h:i:s') : '' }}</td>
+            <td>{{ render.dateEnd ? render.dateEnd|date('d/m/Y h:i:s') : '' }}</td>
+            <td><a href="{{ path('render_edit', {'id': render.id}) }}">edit</a>
+
+                {{ include('render/_delete_form.html.twig') }}</td>
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+</table>
 {% endblock %}

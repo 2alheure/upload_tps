@@ -3,24 +3,64 @@
 {% block title %}{{ module.name }}{% endblock %}
 
 {% block body %}
-    <h1>{{ module.name }}</h1>
+<h1>{{ module.name }}</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ module.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ module.name }}</td>
-            </tr>
-        </tbody>
-    </table>
+<table class="table">
+    <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ module.id }}</td>
+        </tr>
+        <tr>
+            <th>Name</th>
+            <td>{{ module.name }}</td>
+        </tr>
+    </tbody>
+</table>
 
-    <a href="{{ path('module_index') }}">back to list</a>
+<a href="{{ path('module_index') }}">back to list</a>
 
-    <a href="{{ path('module_edit', {'id': module.id}) }}">edit</a>
+<a href="{{ path('module_edit', {'id': module.id}) }}">edit</a>
 
-    {{ include('module/_delete_form.html.twig') }}
+{{ include('module/_delete_form.html.twig') }}
+
+<h2>Les exercices</h2>
+
+<p><a href="{{path('exercice_new', {'id': module.id}) }}">Ajouter un Exercice</a></p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Subject (link)</th>
+            <th>Subject (file)</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        {% for exercice in module.exercices %}
+
+        <tr>
+            <td>{{ exercice.name }}</td>
+            <td>
+                <a href="{{ exercice.subjectLink }}" class="btn btn-primary" target="_blank">
+                    <i class="fas fa-external-link-alt"></i>
+                </a>
+            </td>
+            <td>
+                <a href="{{ absolute_url(asset('uploads/subjects/' ~ exercice.subjectFile)) }}" class="btn btn-primary" target="_blank">
+                    <i class="fas fa-external-link-alt"></i>
+                </a>
+            </td>
+            <td><a href="{{ path('exercice_edit', {'id': exercice.id}) }}">edit</a>
+
+                {{ include('exercice/_delete_form.html.twig') }}</td>
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+</table>
+
 {% endblock %}

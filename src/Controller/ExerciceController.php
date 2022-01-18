@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Module;
 use App\Entity\Exercice;
 use App\Form\ExerciceType;
 use App\Service\FileUploader;
@@ -28,10 +29,11 @@ class ExerciceController extends AbstractController {
     }
 
     /**
-     * @Route("/new", name="exercice_new", methods={"GET", "POST"})
+     * @Route("/new/{id}", name="exercice_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response {
+    public function new(Request $request, EntityManagerInterface $entityManager, FileUploader $fileUploader, Module $module = null): Response {
         $exercice = new Exercice();
+        if (!empty($module)) $exercice->setModule($module);
         $form = $this->createForm(ExerciceType::class, $exercice);
         $form->handleRequest($request);
 
@@ -45,7 +47,7 @@ class ExerciceController extends AbstractController {
             $entityManager->persist($exercice);
             $entityManager->flush();
 
-            return $this->redirectToRoute('exercice_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('module_show', ['id' => $exercice->getModule()->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('exercice/new.html.twig', [

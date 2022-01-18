@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Render{% endblock %}
+
+{% block body %}
+    <h1>Render</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ render.id }}</td>
+            </tr>
+            <tr>
+                <th>Promotion</th>
+                <td>{{ render.promo.name }}</td>
+            </tr>
+            <tr>
+                <th>TP</th>
+                <td>{{ render.exercice.name }}</td>
+            </tr>
+            <tr>
+                <th>Module</th>
+                <td>{{ render.module.name }}</td>
+            </tr>
+            <tr>
+                <th>DateBegin</th>
+                <td>{{ render.dateBegin ? render.dateBegin|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>DateEnd</th>
+                <td>{{ render.dateEnd ? render.dateEnd|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('render_index') }}">back to list</a>
+
+    <a href="{{ path('render_edit', {'id': render.id}) }}">edit</a>
+
+    {{ include('render/_delete_form.html.twig') }}
+{% endblock %}

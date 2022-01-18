@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Render{% endblock %}
+
+{% block body %}
+    <h1>Edit Render</h1>
+
+    {{ include('render/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('render_index') }}">back to list</a>
+
+    {{ include('render/_delete_form.html.twig') }}
+{% endblock %}
