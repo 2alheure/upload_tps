@@ -9,6 +9,7 @@
     <thead>
         <tr>
             <th>Id</th>
+            <th>Nom</th>
             <th>Module</th>
             <th>actions</th>
         </tr>
@@ -17,7 +18,8 @@
         {% for exercice in exercices %}
         <tr>
             <td>{{ exercice.id }}</td>
-            <td>{{ exercice.module }}</td>
+            <td>{{ exercice.name }}</td>
+            <td>{{ exercice.module.name }}</td>
             <td>
                 <a href="{{ path('exercice_show', {'id': exercice.id}) }}">show</a>
                 <a href="{{ path('exercice_edit', {'id': exercice.id}) }}">edit</a>

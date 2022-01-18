@@ -12,8 +12,12 @@
             <td>{{ exercice.id }}</td>
         </tr>
         <tr>
+            <th>Nom</th>
+            <td>{{ exercice.name }}</td>
+        </tr>
+        <tr>
             <th>Module</th>
-            <td>{{ exercice.module }}</td>
+            <td>{{ exercice.module.name }}</td>
         </tr>
         <tr>
             <th>Subject (link)</th>
@@ -21,7 +25,9 @@
         </tr>
         <tr>
             <th>Subject (file)</th>
-            <td><a href="{{ exercice.subjectFile }}" target="_blank">{{ exercice.subjectFile }}</a></td>
+            <td><a href="{{ absolute_url(asset('uploads/subjects/' ~ exercice.subjectFile)) }}" target="_blank">
+                    {{ exercice.subjectFile }}
+                </a></td>
         </tr>
         <tr>
             <th>Comment</th>

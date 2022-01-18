@@ -4,13 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Exercice;
 use App\Form\ExerciceType;
+use App\Service\FileUploader;
 use App\Repository\ExerciceRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/exercices")
@@ -29,12 +30,18 @@ class ExerciceController extends AbstractController {
     /**
      * @Route("/new", name="exercice_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, EntityManagerInterface $entityManager): Response {
+    public function new(Request $request, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response {
         $exercice = new Exercice();
         $form = $this->createForm(ExerciceType::class, $exercice);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $subjectFile = $form->get('subject_file')->getData();
+            if ($subjectFile) {
+                $subjectFileName = $fileUploader->upload($subjectFile, 'subjects');
+                $exercice->setSubjectFile($subjectFileName);
+            }
+
             $entityManager->persist($exercice);
             $entityManager->flush();
 
@@ -59,11 +66,22 @@ class ExerciceController extends AbstractController {
     /**
      * @Route("/{id}/edit", name="exercice_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Exercice $exercice, EntityManagerInterface $entityManager): Response {
-        $form = $this->createForm(ExerciceType::class, $exercice);
+    public function edit(Request $request, Exercice $exercice, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response {
+        $form = $this->createForm(ExerciceType::class, $exercice, [
+            'is_update' => true
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $subjectFile = $form->get('subject_file')->getData();
+            if ($subjectFile) {
+                $subjectFileName = $fileUploader->upload($subjectFile, 'subjects', $exercice->getSubjectFile());
+                $exercice->setSubjectFile($subjectFileName);
+            } elseif ($form->get('drop_file')->getData()) {
+                unlink($this->getParameter('targetDirectory') . '/subjects/' . $exercice->getSubjectFile());
+                $exercice->unsetSubjectFile();
+            }
+
             $entityManager->flush();
 
             return $this->redirectToRoute('exercice_index', [], Response::HTTP_SEE_OTHER);
