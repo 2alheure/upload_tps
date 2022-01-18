@@ -74,8 +74,13 @@ class ExerciceController extends AbstractController {
 
         if ($form->isSubmitted() && $form->isValid()) {
             $subjectFile = $form->get('subject_file')->getData();
+
             if ($subjectFile) {
-                $subjectFileName = $fileUploader->upload($subjectFile, 'subjects', $exercice->getSubjectFile());
+                $subjectFileName = $fileUploader->upload(
+                    $subjectFile,
+                    'subjects',
+                    $exercice->getSubjectFile() ?? ''
+                );
                 $exercice->setSubjectFile($subjectFileName);
             } elseif ($form->get('drop_file')->getData()) {
                 unlink($this->getParameter('targetDirectory') . '/subjects/' . $exercice->getSubjectFile());

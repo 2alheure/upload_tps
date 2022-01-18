@@ -25,21 +25,25 @@ class ExerciceType extends AbstractType {
                 'choice_label' => 'name',
             ])
             ->add('subject_link', UrlType::class, [
-                'label' => 'Sujet (lien)'
+                'label' => 'Sujet (lien)',
+                'required' => false
             ])
             ->add('subject_file', FileType::class, [
                 'label' => 'Sujet (fichier)',
+                'required' => false,
                 'mapped' => false
             ]);
 
         if ($options['is_update'])
             $builder->add('drop_file', CheckboxType::class, [
                 'label' => 'Supprimer le fichier ?',
-                'mapped' => false
+                'mapped' => false,
+                'required' => false
             ]);
 
         $builder->add('comment', TextareaType::class, [
-            'label' => 'Commentaire'
+            'label' => 'Commentaire',
+            'required' => false
         ]);
     }
 
