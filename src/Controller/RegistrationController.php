@@ -83,6 +83,28 @@ class RegistrationController extends AbstractController {
     }
 
     /**
+     * @Route("/resend-email", name="app_resend_email")
+     */
+    public function resendEmail(): Response {
+        $user = $this->getUser();
+
+        // generate a signed url and email it to the user
+        $this->emailVerifier->sendEmailConfirmation(
+            'app_verify_email',
+            $user,
+            (new TemplatedEmail())
+                ->from(new Address('contact@2alheure.fr', '2alheure'))
+                ->to($user->getEmail())
+                ->subject('Confirmez votre email')
+                ->htmlTemplate('registration/confirmation_email.html.twig')
+        );
+
+        $this->addFlash('success', 'Email envoyé avec succès.');
+
+        return $this->redirectToRoute('home');
+    }
+
+    /**
      * @Route("/verify/email", name="app_verify_email")
      */
     public function verifyUserEmail(Request $request, UserRepository $userRepository): Response {
