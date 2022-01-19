@@ -16,6 +16,10 @@
             <td>{{ promo.name }}</td>
         </tr>
         <tr>
+            <th>Nombre d'apprenants</th>
+            <td>{{ promo.users.count }}</td>
+        </tr>
+        <tr>
             <th>Lien</th>
             <td>
                 <a href="{{url('app_register')}}?token={{ promo.token }}">
@@ -47,6 +51,7 @@
             <th>Module</th>
             <th>Début</th>
             <th>Fin</th>
+            <th>Nb. rendus</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -54,14 +59,46 @@
 
         {% for render in promo.renders %}
 
-        <tr>
+        <tr {% if date(render.dateBegin) < date() and date(render.dateEnd)> date() %}
+            class="bg-warning"
+            {% endif %}>
             <td>{{ render.exercice.name }}</td>
             <td>{{ render.exercice.module.name }}</td>
             <td>{{ render.dateBegin ? render.dateBegin|date('d/m/Y h:i:s') : '' }}</td>
             <td>{{ render.dateEnd ? render.dateEnd|date('d/m/Y h:i:s') : '' }}</td>
-            <td><a href="{{ path('render_edit', {'id': render.id}) }}">edit</a>
+            <td>{{ render.uploads.count ~ '/' ~ render.promo.users.count }}</td>
+            <td>
+                <a href="{{ path('render_show', {'id': render.id}) }}">show</a>
+                <a href="{{ path('render_edit', {'id': render.id}) }}">edit</a>
+                {{ include('render/_delete_form.html.twig') }}
+            </td>
+        </tr>
 
-                {{ include('render/_delete_form.html.twig') }}</td>
+        {% endfor %}
+
+    </tbody>
+</table>
+
+<h2>Les apprenants</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        {% for user in promo.users %}
+
+        <tr>
+            <td>{{ user.fullName }}</td>
+            <td>
+                <a href="{{ path('user_show', {'id': user.id}) }}">show</a>
+                <a href="{{ path('render_edit', {'id': user.id}) }}">edit</a>
+                {{ include('user/_delete_form.html.twig') }}
+            </td>
         </tr>
 
         {% endfor %}
