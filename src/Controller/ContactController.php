@@ -27,7 +27,7 @@ class ContactController extends AbstractController {
             if ($this->getUser()) {
                 $sender = $this->getUser()->getFullName() . '<' . $this->getUser()->getEmail() . '>';
                 $senderMail = $this->getUser()->getEmail();
-                $senderPrint = $this->getUser()->getFullName() . ' ( Promotion ' . ($this->getUser()->getPromo() ? $this->getUser()->getPromo()->getName() : 'non définie') . ')';
+                $senderPrint = $this->getUser()->getFullName() . ' (Promotion ' . ($this->getUser()->getPromo() ? $this->getUser()->getPromo()->getName() : 'non définie') . ')';
             } else {
                 $sender = $data['email'];
                 $senderMail = $data['email'];
@@ -37,7 +37,7 @@ class ContactController extends AbstractController {
             $mailer->send(
                 (new Email)
                     ->from($sender)
-                    ->replyTo($sender)
+                    ->replyTo($senderMail)
                     ->to($_ENV['MAIL_CONTACT'])
                     ->subject($data['subject'])
                     ->text(
