@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact{% endblock %}
+
+{% block body %}
+<h1>Contact</h1>
+
+<p>
+    Pour contacter le propriétaire du site, vous pouvez écrire à l'email
+    <a href="mailto:{{ app.request.server.get('MAIL_CONTACT') }}">{{ app.request.server.get('MAIL_CONTACT') }}</a>
+    ou bien utiliser le formulaire de contact ci-dessous. <br>
+
+    Un réponse vous sera apportée dans les plus brefs délais.
+</p>
+
+{{ form(formulaire) }}
+
+{% endblock %}

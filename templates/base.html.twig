@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %} | 2alheure TPs</title>
-    <link rel="icon"
-        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+    <link rel="shortcut icon" href="{{ asset('images/icon.jpg')}}" type="image/jpg">
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -27,6 +26,8 @@
             <a class="nav-link" href="{{ path('user_index') }}">Utilisateurs</a>
             <a class="nav-link" href="{{ path('exercice_index') }}">Exercices</a>
             {% endif %}
+
+            <a class="nav-link" href="{{ path('contact') }}">Contact</a>
 
             {% if not app.user %}
             <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
