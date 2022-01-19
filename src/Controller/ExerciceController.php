@@ -105,6 +105,7 @@ class ExerciceController extends AbstractController {
      */
     public function delete(Request $request, Exercice $exercice, EntityManagerInterface $entityManager): Response {
         if ($this->isCsrfTokenValid('delete' . $exercice->getId(), $request->request->get('_token'))) {
+            unlink($this->getParameter('targetDirectory') . '/subjects/' . $exercice->getSubjectFile());
             $entityManager->remove($exercice);
             $entityManager->flush();
         }

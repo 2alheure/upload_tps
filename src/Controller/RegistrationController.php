@@ -9,6 +9,7 @@ use App\Repository\UserRepository;
 use App\Security\EmailVerifier;
 use App\Security\LoginAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -84,6 +85,7 @@ class RegistrationController extends AbstractController {
 
     /**
      * @Route("/resend-email", name="app_resend_email")
+     * @IsGranted("ROLE_USER")
      */
     public function resendEmail(): Response {
         $user = $this->getUser();
@@ -99,7 +101,7 @@ class RegistrationController extends AbstractController {
                 ->htmlTemplate('registration/confirmation_email.html.twig')
         );
 
-        $this->addFlash('success', 'Email envoyé avec succès.');
+        $this->addFlash('success', 'Un nouvel email de validation vous a été envoyé. Si vous ne le trouvez pas dans votre boîte de réception, pensez à vérifier vos spams.');
 
         return $this->redirectToRoute('home');
     }

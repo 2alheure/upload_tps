@@ -8,8 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=UploadRepository::class)
  */
-class Upload
-{
+class Upload {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -29,31 +28,77 @@ class Upload
      */
     private $render;
 
-    public function getId(): ?int
-    {
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $renderFile;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $renderLink;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $comment;
+
+    public function getId(): ?int {
         return $this->id;
     }
 
-    public function getUser(): ?User
-    {
+    public function getUser(): ?User {
         return $this->user;
     }
 
-    public function setUser(?User $user): self
-    {
+    public function setUser(?User $user): self {
         $this->user = $user;
 
         return $this;
     }
 
-    public function getRender(): ?Render
-    {
+    public function getRender(): ?Render {
         return $this->render;
     }
 
-    public function setRender(?Render $render): self
-    {
+    public function setRender(?Render $render): self {
         $this->render = $render;
+
+        return $this;
+    }
+
+    public function getRenderFile(): ?string {
+        return $this->renderFile;
+    }
+
+    public function setRenderFile(?string $renderFile): self {
+        $this->renderFile = $renderFile;
+
+        return $this;
+    }
+
+    public function unsetRenderFile(): self {
+        $this->renderFile = null;
+
+        return $this;
+    }
+
+    public function getRenderLink(): ?string {
+        return $this->renderLink;
+    }
+
+    public function setRenderLink(?string $renderLink): self {
+        $this->renderLink = $renderLink;
+
+        return $this;
+    }
+
+    public function getComment(): ?string {
+        return $this->comment;
+    }
+
+    public function setComment(?string $comment): self {
+        $this->comment = $comment;
 
         return $this;
     }
