@@ -29,7 +29,7 @@ class ExerciceController extends AbstractController {
     }
 
     /**
-     * @Route("/new/{id}", name="exercice_new", methods={"GET", "POST"})
+     * @Route("/new/{module}", name="exercice_new", methods={"GET", "POST"})
      */
     public function new(Request $request, EntityManagerInterface $entityManager, FileUploader $fileUploader, Module $module = null): Response {
         $exercice = new Exercice();

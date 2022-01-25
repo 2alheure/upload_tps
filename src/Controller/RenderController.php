@@ -28,7 +28,7 @@ class RenderController extends AbstractController {
     }
 
     /**
-     * @Route("/new/{id}", name="render_new", methods={"GET", "POST"})
+     * @Route("/new/{promo}", name="render_new", methods={"GET", "POST"})
      */
     public function new(Request $request, EntityManagerInterface $entityManager, Promo $promo = null): Response {
         $render = new Render();
