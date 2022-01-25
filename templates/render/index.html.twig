@@ -23,9 +23,9 @@
             <td>{{ render.id }}</td>
             <td>{{ render.promo.name }}</td>
             <td>{{ render.exercice.name }}</td>
-            <td>{{ render.module.name }}</td>
-            <td>{{ render.dateBegin ? render.dateBegin|date('Y-m-d H:i:s') : '' }}</td>
-            <td>{{ render.dateEnd ? render.dateEnd|date('Y-m-d H:i:s') : '' }}</td>
+            <td>{{ render.exercice.module.name }}</td>
+            <td>{{ render.dateBegin ? render.dateBegin|date('d/m/Y H:i:s') : '' }}</td>
+            <td>{{ render.dateEnd ? render.dateEnd|date('d/m/Y H:i:s') : '' }}</td>
             <td>
                 <a href="{{ path('render_show', {'id': render.id}) }}">show</a>
                 <a href="{{ path('render_edit', {'id': render.id}) }}">edit</a>

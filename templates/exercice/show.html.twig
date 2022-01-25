@@ -1,8 +1,4 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}{{ exercice.name }}{% endblock %}
-
-{% block body %}
+{% extends 'base.html.twig' %} {% block title %}{{ exercice.name }}{% endblock %} {% block body %}
 <h1>{{ exercice.name }}</h1>
 
 <table class="table">
@@ -21,13 +17,19 @@
         </tr>
         <tr>
             <th>Subject (link)</th>
-            <td><a href="{{ exercice.subjectLink }}" target="_blank">{{ exercice.subjectLink }}</a></td>
+            <td>
+                {% if exercice.subjectLink %}
+                <a href="{{ exercice.subjectLink }}" target="_blank">{{ exercice.subjectLink }}</a> {% endif %}
+            </td>
         </tr>
         <tr>
             <th>Subject (file)</th>
-            <td><a href="{{ absolute_url(asset('uploads/subjects/' ~ exercice.subjectFile)) }}" target="_blank">
+            <td>
+                {% if exercice.subjectFile %}
+                <a href="{{ absolute_url(asset('uploads/' ~ exercice.subjectFile)) }}" target="_blank">
                     {{ exercice.subjectFile }}
-                </a></td>
+                </a> {% endif %}
+            </td>
         </tr>
         <tr>
             <th>Comment</th>
@@ -38,7 +40,4 @@
 
 <a href="{{ path('exercice_index') }}">back to list</a>
 
-<a href="{{ path('exercice_edit', {'id': exercice.id}) }}">edit</a>
-
-{{ include('exercice/_delete_form.html.twig') }}
-{% endblock %}
+<a href="{{ path('exercice_edit', {'id': exercice.id}) }}">edit</a> {{ include('exercice/_delete_form.html.twig') }} {% endblock %}

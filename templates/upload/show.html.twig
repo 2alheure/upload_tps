@@ -1,34 +1,38 @@
-{% extends 'base.html.twig' %}
+{% extends 'base.html.twig' %} {% block title %}Upload {% endblock %} {% block body %}
+<h1>Upload</h1>
 
-{% block title %}Upload{% endblock %}
+<table class="table">
+    <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ upload.id }}</td>
+        </tr>
+        <tr>
+            <th>RenderFile</th>
+            <td>
+                {% if exercice.renderFile %}
+                <a href="{{ absolute_url(asset('uploads/' ~ upload.renderFile)) }}" target="_blank">
+						{{ upload.renderFile }}
+					</a> {% endif %}
+            </td>
 
-{% block body %}
-    <h1>Upload</h1>
+        </tr>
+        <tr>
+            <th>RenderLink</th>
+            <td>
+                {% if exercice.renderLink %}
+                <a href="{{ upload.renderLink }}" target="_blank">
+						{{ upload.renderLink }}
+					</a> {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <th>Comment</th>
+            <td>{{ upload.comment }}</td>
+        </tr>
+    </tbody>
+</table>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ upload.id }}</td>
-            </tr>
-            <tr>
-                <th>RenderFile</th>
-                <td>{{ upload.renderFile }}</td>
-            </tr>
-            <tr>
-                <th>RenderLink</th>
-                <td>{{ upload.renderLink }}</td>
-            </tr>
-            <tr>
-                <th>Comment</th>
-                <td>{{ upload.comment }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('upload_index') }}">back to list</a>
-
-    <a href="{{ path('upload_edit', {'id': upload.id}) }}">edit</a>
-
-    {{ include('upload/_delete_form.html.twig') }}
-{% endblock %}
+{% if is_granted('ROLE_ADMIN') %}
+<a href="{{ path('render_show', { render: upload.render.id }) }}">back to list</a> {% endif %} {% if upload.render.open %}
+<a href="{{ path('upload_edit', {'id': upload.id}) }}">edit</a> {{ include('upload/_delete_form.html.twig') }} {% endif %} {% endblock %}

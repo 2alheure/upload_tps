@@ -2,9 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\User;
 use App\Entity\Render;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Render|null find($id, $lockMode = null, $lockVersion = null)
@@ -12,11 +13,18 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Render[]    findAll()
  * @method Render[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class RenderRepository extends ServiceEntityRepository
-{
-    public function __construct(ManagerRegistry $registry)
-    {
+class RenderRepository extends ServiceEntityRepository {
+    public function __construct(ManagerRegistry $registry) {
         parent::__construct($registry, Render::class);
+    }
+
+    public function findRendersOfUser(User $user) {
+        return $this->createQueryBuilder('r')
+            ->where('r.promo = :promo')
+            ->setParameter('promo', $user->getPromo())
+            ->orderBy('r.dateBegin', 'DESC')
+            ->getQuery()
+            ->getResult();
     }
 
     // /**

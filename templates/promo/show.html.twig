@@ -1,8 +1,4 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}{{ promo.name }}{% endblock %}
-
-{% block body %}
+{% extends 'base.html.twig' %} {% block title %} {{ promo.name }} {% endblock %} {% block body %}
 <h1>{{ promo.name }}</h1>
 
 <table class="table">
@@ -23,12 +19,11 @@
             <th>Lien</th>
             <td>
                 <a href="{{url('app_register')}}?token={{ promo.token }}">
-                    {{url('app_register')}}?...
-                </a>
-                <button class="btn btn-primary btn-lg"
-                    onclick="navigator.clipboard.writeText(`{{url('app_register') ~ '?token=' ~ promo.token }}`); alert('Lien copié !');">
-                    <i class="fas fa-copy"></i>
-                </button>
+						{{url('app_register')}}?...
+					</a>
+                <button class="btn btn-primary btn-lg" onclick="navigator.clipboard.writeText(`{{url('app_register') ~ '?token=' ~ promo.token }}`); alert('Lien copié !');">
+						<i class="fas fa-copy"></i>
+					</button>
             </td>
         </tr>
     </tbody>
@@ -36,13 +31,13 @@
 
 <a href="{{ path('promo_index') }}">back to list</a>
 
-<a href="{{ path('promo_edit', {'id': promo.id}) }}">edit</a>
-
-{{ include('promo/_delete_form.html.twig') }}
+<a href="{{ path('promo_edit', {'id': promo.id}) }}">edit</a> {{ include('promo/_delete_form.html.twig') }}
 
 <h2>Leurs TPs</h2>
 
-<p><a href="{{path('render_new', {'promo': promo.id}) }}">Ajouter un TP</a></p>
+<p>
+    <a href="{{path('render_new', {'promo': promo.id}) }}">Ajouter un TP</a>
+</p>
 
 <table class="table">
     <thead>
@@ -59,9 +54,7 @@
 
         {% for render in promo.renders %}
 
-        <tr {% if date(render.dateBegin) < date() and date(render.dateEnd)> date() %}
-            class="bg-warning"
-            {% endif %}>
+        <tr {% if render.open %} class="bg-info text-white" {% endif %}>
             <td>{{ render.exercice.name }}</td>
             <td>{{ render.exercice.module.name }}</td>
             <td>{{ render.dateBegin ? render.dateBegin|date('d/m/Y h:i:s') : '' }}</td>
@@ -69,8 +62,7 @@
             <td>{{ render.uploads.count ~ '/' ~ render.promo.users.count }}</td>
             <td>
                 <a href="{{ path('render_show', {'id': render.id}) }}">show</a>
-                <a href="{{ path('render_edit', {'id': render.id}) }}">edit</a>
-                {{ include('render/_delete_form.html.twig') }}
+                <a href="{{ path('render_edit', {'id': render.id}) }}">edit</a> {{ include('render/_delete_form.html.twig') }}
             </td>
         </tr>
 
@@ -96,8 +88,7 @@
             <td>{{ user.fullName }}</td>
             <td>
                 <a href="{{ path('user_show', {'id': user.id}) }}">show</a>
-                <a href="{{ path('render_edit', {'id': user.id}) }}">edit</a>
-                {{ include('user/_delete_form.html.twig') }}
+                <a href="{{ path('render_edit', {'id': user.id}) }}">edit</a> {{ include('user/_delete_form.html.twig') }}
             </td>
         </tr>
 

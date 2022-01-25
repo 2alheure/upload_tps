@@ -1,8 +1,4 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}{{ module.name }}{% endblock %}
-
-{% block body %}
+{% extends 'base.html.twig' %} {% block title %}{{ module.name }}{% endblock %} {% block body %}
 <h1>{{ module.name }}</h1>
 
 <table class="table">
@@ -20,9 +16,7 @@
 
 <a href="{{ path('module_index') }}">back to list</a>
 
-<a href="{{ path('module_edit', {'id': module.id}) }}">edit</a>
-
-{{ include('module/_delete_form.html.twig') }}
+<a href="{{ path('module_edit', {'id': module.id}) }}">edit</a> {{ include('module/_delete_form.html.twig') }}
 
 <h2>Les exercices</h2>
 
@@ -49,13 +43,11 @@
                 </a>
             </td>
             <td>
-                <a href="{{ absolute_url(asset('uploads/subjects/' ~ exercice.subjectFile)) }}" class="btn btn-primary" target="_blank">
+                <a href="{{ absolute_url(asset('uploads/' ~ exercice.subjectFile)) }}" class="btn btn-primary" target="_blank">
                     <i class="fas fa-external-link-alt"></i>
                 </a>
             </td>
-            <td><a href="{{ path('exercice_edit', {'id': exercice.id}) }}">edit</a>
-
-                {{ include('exercice/_delete_form.html.twig') }}</td>
+            <td><a href="{{ path('exercice_edit', {'id': exercice.id}) }}">edit</a> {{ include('exercice/_delete_form.html.twig') }}</td>
         </tr>
 
         {% endfor %}

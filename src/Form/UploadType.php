@@ -28,7 +28,8 @@ class UploadType extends AbstractType {
             $builder->add('drop_file', CheckboxType::class, [
                 'label' => 'Supprimer le fichier ?',
                 'mapped' => false,
-                'required' => false
+                'required' => false,
+                'help' => 'Cocher cette case supprimera le fichier associé au rendu. Cette case n\'est pas prise en compte si vous soumettez un nouveau fichier ou si aucun fichier n\'avait été soumis au préalable.'
             ]);
 
         $builder->add('comment', TextareaType::class, [

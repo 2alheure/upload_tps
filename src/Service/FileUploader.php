@@ -22,29 +22,35 @@ class FileUploader {
         $fileName = $safeFilename . '.' . $file->guessExtension();
 
         try {
-            $file->move($this->getTargetDirectory($directory), $fileName);
+            $file->move($this->getTargetDirectory() . '/' . $this->getTargetSubdirectory($directory), $fileName);
         } catch (FileException $e) {
             throw new ServerException($e->getMessage);
         }
 
-        return $fileName;
+        return $this->getTargetSubdirectory($directory) . '/' . $fileName;
     }
 
-    public function getTargetDirectory(string $directory = '') {
+    public function getTargetDirectory() {
+        return $this->targetDirectory;
+    }
+
+    public function getTargetSubdirectory(string $directory = '') {
+        if ($directory[strlen($directory)] === '/') $directory = substr($directory, 0, strlen($directory) - 1);
+
         switch ($directory) {
             case '':
             case '/':
-                return $this->targetDirectory;
+                return '';
 
             default:
-                $ret = $this->targetDirectory;
+                $ret = '';
                 $dir = explode('/', $directory);
 
                 foreach ($dir as $d) {
                     if (!empty($d)) $ret .= '/' . $this->slugger->slug($d, '_');
                 }
 
-                return $ret;
+                return substr($ret, 1);
         }
     }
 }

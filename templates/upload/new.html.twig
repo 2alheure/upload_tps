@@ -1,11 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Upload{% endblock %}
+{% block title %}New Upload
+{% endblock %}
 
 {% block body %}
-    <h1>Create new Upload</h1>
+	<h1>Create new Upload</h1>
 
-    {{ include('upload/_form.html.twig') }}
+	{{ include('upload/_form.html.twig') }}
 
-    <a href="{{ path('upload_index') }}">back to list</a>
+	{% if is_granted('ROLE_ADMIN') %}
+		<a href="{{ path('render_show', { render: upload.render.id }) }}">back to list</a>
+	{% endif %}
 {% endblock %}

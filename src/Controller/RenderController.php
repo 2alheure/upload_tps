@@ -14,7 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * @Route("/render")
+ * @Route("/renders")
  * @IsGranted("ROLE_ADMIN")
  */
 class RenderController extends AbstractController {
