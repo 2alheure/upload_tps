@@ -22,7 +22,8 @@ class RenderRepository extends ServiceEntityRepository {
         return $this->createQueryBuilder('r')
             ->where('r.promo = :promo')
             ->setParameter('promo', $user->getPromo())
-            ->orderBy('r.dateBegin', 'DESC')
+            ->orderBy('ABS(DATE_DIFF(r.dateBegin, CURRENT_DATE()))', 'ASC')
+            ->addOrderBy('DATE_DIFF(r.dateBegin, CURRENT_DATE())', 'DESC')
             ->getQuery()
             ->getResult();
     }

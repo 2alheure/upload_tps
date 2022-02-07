@@ -1,94 +1,73 @@
 <!DOCTYPE html>
 <html>
 
-	<head>
-		<meta charset="UTF-8">
-		<title>
-			{% block title %}{% endblock %}
-			| 2alheure TPs</title>
-		<link rel="shortcut icon" href="{{ asset('images/icon.jpg')}}" type="image/jpg">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}{% endblock %} | 2alheure TPs</title>
+    <link rel="shortcut icon" href="{{ asset('images/icon.jpg')}}" type="image/jpg">
 
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha512-xA6Hp6oezhjd6LiLZynuukm80f8BoZ3OpcEYaqKoCV3HKQDrYjDE1Gu8ocxgxoXmwmSzM4iqPvCsOkQNiu41GA==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha512-xA6Hp6oezhjd6LiLZynuukm80f8BoZ3OpcEYaqKoCV3HKQDrYjDE1Gu8ocxgxoXmwmSzM4iqPvCsOkQNiu41GA==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
 
-	</head>
+</head>
 
-	<body>
-		<div class="container">
-			<nav class="nav justify-content-center">
-				<a class="nav-link" href="{{ path('home') }}">Accueil</a>
+<body>
+    <div class="container">
+        <nav class="nav justify-content-center">
+            <a class="nav-link" href="{{ path('home') }}">Accueil</a>
+            <a class="nav-link" href="{{ path('contact') }}">Contact</a> {% if is_granted('ROLE_ADMIN') %}
+            <a class="nav-link" href="{{ path('module_index') }}">Modules</a>
+            <a class="nav-link" href="{{ path('promo_index') }}">Promotions</a>
+            <a class="nav-link" href="{{ path('user_index') }}">Utilisateurs</a>
+            <a class="nav-link" href="{{ path('exercice_index') }}">Exercices</a> {% endif %} {% if not app.user %}
+            <a class="nav-link" href="{{ path('app_login') }}">Connexion</a> {% else %}
+            <a class="nav-link" href="{{ path('my_tps') }}">Mes TPs</a>
+            <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a> {% endif %}
+        </nav>
 
-				{% if is_granted('ROLE_ADMIN') %}
-					<a class="nav-link" href="{{ path('module_index') }}">Modules</a>
-					<a class="nav-link" href="{{ path('promo_index') }}">Promotions</a>
-					<a class="nav-link" href="{{ path('user_index') }}">Utilisateurs</a>
-					<a class="nav-link" href="{{ path('exercice_index') }}">Exercices</a>
-				{% endif %}
-
-				{%if app.user and not is_granted('ROLE_ADMIN') %}
-					<a class="nav-link" href="{{ path('my_tps') }}">Mes TPs</a>
-				{% endif %}
-
-
-				<a class="nav-link" href="{{ path('contact') }}">Contact</a>
-
-				{% if not app.user %}
-					<a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
-				{% else %}
-					<a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
-				{% endif %}
-			</nav>
-
-			{% if app.user and not app.user.isVerified %}
-				<div class="alert alert-warning alert-dismissible fade show" role="alert">
-					<strong>Attention</strong>
-					Votre email n'est pas validé. Vous êtes invité à le faire au plus vite car
-																            celui-ci sert aux éventuelles communications. Si vous n'avez pas reçu l'email de validation,
-					<a href="{{url('app_resend_email')}}">cliquez ici</a>.
-					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        {% if app.user and not app.user.isVerified %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Attention</strong> Votre email n'est pas validé. Vous êtes invité à le faire au plus vite car celui-ci sert aux éventuelles communications. Si vous n'avez pas reçu l'email de validation,
+            <a href="{{url('app_resend_email')}}">cliquez ici</a>.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-				</div>
-			{% endif %}
-
-			{% for message in app.flashes('success') %}
-				<div class="alert alert-success alert-dismissible fade show" role="alert">
-					<strong>Succès</strong>
-					{{ message }}
-					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        </div>
+        {% endif %} {% for message in app.flashes('success') %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Succès</strong> {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-				</div>
-			{% endfor %}
-
-			{% for message in app.flashes('warning') %}
-				<div class="alert alert-warning alert-dismissible fade show" role="alert">
-					<strong>Attention</strong>
-					{{ message }}
-					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        </div>
+        {% endfor %} {% for message in app.flashes('warning') %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Attention</strong> {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-				</div>
-			{% endfor %}
-
-			{% for message in app.flashes('error') %}
-				<div class="alert alert-danger alert-dismissible fade show" role="alert">
-					<strong>Erreur</strong>
-					{{ message }}
-					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        </div>
+        {% endfor %} {% for message in app.flashes('error') %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Erreur</strong> {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-				</div>
-			{% endfor %}
+        </div>
+        {% endfor %} {% block body %}{% endblock %}
+    </div>
 
-			{% block body %}{% endblock %}
-		</div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
 
-		<!-- Optional JavaScript -->
-		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-	</body>
-</html></body></html>
+</html>
+</body>
+
+</html>
