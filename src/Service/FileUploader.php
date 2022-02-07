@@ -35,7 +35,7 @@ class FileUploader {
     }
 
     public function getTargetSubdirectory(string $directory = '') {
-        if ($directory[strlen($directory)] === '/') $directory = substr($directory, 0, strlen($directory) - 1);
+        if ($directory[strlen($directory) - 1] === '/') $directory = substr($directory, 0, -1);
 
         switch ($directory) {
             case '':

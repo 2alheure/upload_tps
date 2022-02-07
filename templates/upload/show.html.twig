@@ -10,7 +10,7 @@
         <tr>
             <th>RenderFile</th>
             <td>
-                {% if exercice.renderFile %}
+                {% if upload.renderFile %}
                 <a href="{{ absolute_url(asset('uploads/' ~ upload.renderFile)) }}" target="_blank">
 						{{ upload.renderFile }}
 					</a> {% endif %}
@@ -20,7 +20,7 @@
         <tr>
             <th>RenderLink</th>
             <td>
-                {% if exercice.renderLink %}
+                {% if upload.renderLink %}
                 <a href="{{ upload.renderLink }}" target="_blank">
 						{{ upload.renderLink }}
 					</a> {% endif %}

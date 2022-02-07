@@ -8,6 +8,7 @@
             <th>TP</th>
             <th>Début</th>
             <th>Fin</th>
+            <th>Sujet</th>
             <th>Statut</th>
             <th>Actions</th>
         </tr>
@@ -19,6 +20,7 @@
             <td>{{ render.exercice.name }}</td>
             <td>{{ render.dateBegin ? render.dateBegin|date('d/m/Y H:i:s') : '' }}</td>
             <td>{{ render.dateEnd ? render.dateEnd|date('d/m/Y H:i:s') : '' }}</td>
+            <td><a href="{{ path('subject', {'id': render.id}) }}" class="btn btn-primary"><i class="fas fa-link"></i></a></td>
             <td>
                 {% if render.open %}
                 <span class="text-success">Ouvert</span> {% else %}

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Render;
 use App\Repository\RenderRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,6 +13,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  * @IsGranted("ROLE_USER")
  */
 class MyTpsController extends AbstractController {
+    /**
+     * @Route("/my-tps/{id}", name="subject", methods={"GET"})
+     */
+    public function subject(Render $render): Response {
+        return $this->render('my_tps/subject.html.twig', [
+            'render' => $render,
+        ]);
+    }
+
     /**
      * @Route("/my-tps", name="my_tps", methods={"GET"})
      */
