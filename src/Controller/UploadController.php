@@ -38,7 +38,7 @@ class UploadController extends AbstractController {
 
             $renderFile = $form->get('render_file')->getData();
             if ($renderFile) {
-                $renderFileName = $fileUploader->upload($renderFile, 'renders/' . $render->getPromo()->getName(), $user->getFullName());
+                $renderFileName = $fileUploader->upload($renderFile, 'renders/' . $render->getPromo()->getName() . '/' . $render->getDirectory(), $user->getFullName());
                 $upload->setRenderFile($renderFileName);
             }
 
@@ -71,7 +71,7 @@ class UploadController extends AbstractController {
      */
     public function edit(Request $request, Upload $upload, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response {
         if (!$upload->getRender()->isOpen()) throw new AccessDeniedHttpException('Impossible de modifier un rendu pour un TP terminé');
-        
+
         if ($upload->getUser()->getId() !== $this->getUser()->getId())
             $this->denyAccessUnlessGranted('ROLE_ADMIN');
 

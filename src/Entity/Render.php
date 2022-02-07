@@ -45,6 +45,11 @@ class Render {
      */
     private $uploads;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $directory;
+
     public function __construct() {
         $this->uploads = new ArrayCollection();
     }
@@ -133,5 +138,17 @@ class Render {
     public function isOpen(): bool {
         return (!$this->dateBegin || $this->dateBegin->getTimestamp() < time())
             && (!$this->dateEnd || $this->dateEnd->getTimestamp() > time());
+    }
+
+    public function getDirectory(): ?string
+    {
+        return $this->directory;
+    }
+
+    public function setDirectory(string $directory): self
+    {
+        $this->directory = $directory;
+
+        return $this;
     }
 }

@@ -1,8 +1,4 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Render index{% endblock %}
-
-{% block body %}
+{% extends 'base.html.twig' %} {% block title %}Render index{% endblock %} {% block body %}
 <h1>Render index</h1>
 
 <table class="table">
@@ -12,6 +8,7 @@
             <th>Promotion</th>
             <th>TP</th>
             <th>Module</th>
+            <th>Dossier</th>
             <th>DateBegin</th>
             <th>DateEnd</th>
             <th>actions</th>
@@ -24,6 +21,7 @@
             <td>{{ render.promo.name }}</td>
             <td>{{ render.exercice.name }}</td>
             <td>{{ render.exercice.module.name }}</td>
+            <td>{{ render.directory }}</td>
             <td>{{ render.dateBegin ? render.dateBegin|date('d/m/Y H:i:s') : '' }}</td>
             <td>{{ render.dateEnd ? render.dateEnd|date('d/m/Y H:i:s') : '' }}</td>
             <td>
@@ -39,5 +37,4 @@
     </tbody>
 </table>
 
-<a href="{{ path('render_new') }}">Create new</a>
-{% endblock %}
+<a href="{{ path('render_new') }}">Create new</a> {% endblock %}

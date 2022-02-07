@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -30,13 +31,14 @@ class RenderController extends AbstractController {
     /**
      * @Route("/new/{promo}", name="render_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, EntityManagerInterface $entityManager, Promo $promo = null): Response {
+    public function new(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger, Promo $promo = null): Response {
         $render = new Render();
         if (!empty($promo)) $render->setPromo($promo);
         $form = $this->createForm(RenderType::class, $render);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $render->setDirectory($slugger->slug($render->getExercice()->getName() . '-' . uniqid()));
             $entityManager->persist($render);
             $entityManager->flush();
 
