@@ -19,7 +19,7 @@ class FileUploader {
     public function upload(UploadedFile $file, string $directory = '', string $name = '') {
         if (empty($name) || empty($name = explode('.', $name)[0])) $safeFilename = uniqid();
         else $safeFilename = $this->slugger->slug($name);
-        $fileName = $safeFilename . '.' . $file->guessExtension();
+        $fileName = $safeFilename . '.' . $file->getClientOriginalExtension();
 
         try {
             $file->move($this->getTargetDirectory() . '/' . $this->getTargetSubdirectory($directory), $fileName);
