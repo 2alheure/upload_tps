@@ -18,9 +18,13 @@
         <tr>
             <td>{{ render.exercice.module.name }}</td>
             <td>{{ render.exercice.name }}</td>
-            <td>{{ render.dateBegin ? render.dateBegin|date('d/m/Y H:i:s') : '' }}</td>
-            <td>{{ render.dateEnd ? render.dateEnd|date('d/m/Y H:i:s') : '' }}</td>
-            <td><a href="{{ path('subject', {'id': render.id}) }}" class="btn btn-primary"><i class="fas fa-link"></i></a></td>
+            <td>{{ render.dateBegin ? render.dateBegin|date('d/m/Y h:i:s') : '' }}</td>
+            <td>{{ render.dateEnd ? render.dateEnd|date('d/m/Y h:i:s') : '' }}</td>
+            <td>
+                {% if render.dateBegin
+                < date() %} <a href="{{ path('subject', {'id': render.id}) }}" class="btn btn-primary"><i class="fas fa-link"></i></a>
+                    {% else %} Pas encore disponible {% endif %}
+            </td>
             <td>
                 {% if render.open %}
                 <span class="text-success">Ouvert</span> {% else %}
