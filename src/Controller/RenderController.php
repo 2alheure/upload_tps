@@ -38,6 +38,12 @@ class RenderController extends AbstractController {
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            if ($form->get('sameDate')->getData()) $render->setDateEnd(clone $render->getDateBegin());
+
+            $render->getDateBegin()->setTime(0, 0, 0);
+            $render->getDateEnd()->setTime(23, 59, 59);
+
             $render->setDirectory($slugger->slug($render->getExercice()->getName() . '-' . uniqid()));
             $entityManager->persist($render);
             $entityManager->flush();
@@ -68,6 +74,11 @@ class RenderController extends AbstractController {
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->get('sameDate')->getData()) $render->setDateEnd(clone $render->getDateBegin());
+
+            $render->getDateBegin()->setTime(0, 0, 0);
+            $render->getDateEnd()->setTime(23, 59, 59);
+
             $entityManager->flush();
 
             return $this->redirectToRoute('render_index', [], Response::HTTP_SEE_OTHER);

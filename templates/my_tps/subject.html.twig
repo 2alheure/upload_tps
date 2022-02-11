@@ -12,6 +12,14 @@
             <td>{{ render.exercice.name }}</td>
         </tr>
         <tr>
+            <th>Début</th>
+            <td>{{ render.dateBegin ? render.dateBegin|date('d/m/Y H:i:s') : '' }}</td>
+        </tr>
+        <tr>
+            <th>Fin</th>
+            <td>{{ render.dateEnd ? render.dateEnd|date('d/m/Y H:i:s') : '' }}</td>
+        </tr>
+        <tr>
             <th>Sujet (lien)</th>
             <td>
                 {% if render.exercice.subjectLink %}

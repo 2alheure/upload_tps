@@ -38,14 +38,18 @@
         <tr>
             <td>{{ exercice.name }}</td>
             <td>
+                {% if exercice.subjectLink %}
                 <a href="{{ exercice.subjectLink }}" class="btn btn-primary" target="_blank">
                     <i class="fas fa-external-link-alt"></i>
                 </a>
+                {% endif %}
             </td>
             <td>
+                {% if exercice.subjectFile %}
                 <a href="{{ absolute_url(asset('uploads/' ~ exercice.subjectFile)) }}" class="btn btn-primary" target="_blank">
                     <i class="fas fa-external-link-alt"></i>
                 </a>
+                {% endif %}
             </td>
             <td><a href="{{ path('exercice_edit', {'id': exercice.id}) }}">edit</a> {{ include('exercice/_delete_form.html.twig') }}</td>
         </tr>

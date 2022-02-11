@@ -57,8 +57,8 @@
         <tr {% if render.open %} class="bg-info text-white" {% endif %}>
             <td>{{ render.exercice.name }}</td>
             <td>{{ render.exercice.module.name }}</td>
-            <td>{{ render.dateBegin ? render.dateBegin|date('d/m/Y h:i:s') : '' }}</td>
-            <td>{{ render.dateEnd ? render.dateEnd|date('d/m/Y h:i:s') : '' }}</td>
+            <td>{{ render.dateBegin ? render.dateBegin|date('d/m/Y H:i:s') : '' }}</td>
+            <td>{{ render.dateEnd ? render.dateEnd|date('d/m/Y H:i:s') : '' }}</td>
             <td>{{ render.uploads.count ~ '/' ~ render.promo.users.count }}</td>
             <td>
                 <a href="{{ path('render_show', {'id': render.id}) }}">show</a>
