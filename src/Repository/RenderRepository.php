@@ -28,6 +28,16 @@ class RenderRepository extends ServiceEntityRepository {
             ->getResult();
     }
 
+    public function findRendersOfPromo(int $promoId) {
+        return $this->createQueryBuilder('r')
+            ->where('r.promo.id = :promoId')
+            ->setParameter('promoId', $promoId)
+            ->orderBy('ABS(DATE_DIFF(r.dateBegin, CURRENT_DATE()))', 'ASC')
+            ->addOrderBy('DATE_DIFF(r.dateBegin, CURRENT_DATE())', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Render[] Returns an array of Render objects
     //  */

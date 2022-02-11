@@ -1,6 +1,14 @@
 {% extends 'base.html.twig' %} {% block title %}Mes TPs {% endblock %} {% block body %}
 <h1>Mes TPs</h1>
 
+{% if is_granted('ROLE_ADMIN') %}
+<hr class="my-5">
+<div>
+    <p>Voir les TPs de :</p>
+    {{ form(promoForm) }}
+</div>
+<hr class="my-5"> {% endif %}
+
 <table class="table">
     <thead>
         <tr>
