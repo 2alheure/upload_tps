@@ -1,15 +1,5 @@
-{% extends 'base.html.twig' %}
+{% extends 'base.html.twig' %} {% block title %}Edit Upload{% endblock %} {% block body %}
+<h1>Edit Upload</h1>
 
-{% block title %}Edit Upload{% endblock %}
-
-{% block body %}
-    <h1>Edit Upload</h1>
-
-    {{ include('upload/_form.html.twig', {'button_label': 'Update'}) }}
-
-	{% if is_granted('ROLE_ADMIN') %}
-		<a href="{{ path('render_show', { render: upload.render.id }) }}">back to list</a>
-	{% endif %}
-
-    {{ include('upload/_delete_form.html.twig') }}
-{% endblock %}
+{{ include('upload/_form.html.twig', {'button_label': 'Update'}) }} {% if is_granted('ROLE_ADMIN') %}
+<a href="{{ path('render_show', { id: upload.render.id }) }}">back to list</a> {% endif %} {{ include('upload/_delete_form.html.twig') }} {% endblock %}

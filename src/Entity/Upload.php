@@ -102,4 +102,12 @@ class Upload {
 
         return $this;
     }
+
+    public function getDirectory(): string {
+        return 'renders/' . $this->getRender()->getPromo()->getName() . '/' . $this->getRender()->getDirectory();
+    }
+
+    public function getFilename(): string {
+        return basename($this->getRenderFile()) ?? $this->getUser()->getFullName();
+    }
 }

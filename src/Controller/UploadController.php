@@ -85,10 +85,11 @@ class UploadController extends AbstractController {
             $renderFile = $form->get('render_file')->getData();
 
             if ($renderFile) {
+                unlink($this->getParameter('targetDirectory') . '/' . $upload->getRenderFile());
                 $renderFileName = $fileUploader->upload(
                     $renderFile,
-                    'renders',
-                    $upload->getRenderFile() ?? ''
+                    $upload->getDirectory(),
+                    $upload->getFilename()
                 );
                 $upload->setRenderFile($renderFileName);
             } elseif ($form->get('drop_file')->getData() && $upload->getRenderFile()) {

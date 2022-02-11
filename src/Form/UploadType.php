@@ -21,7 +21,8 @@ class UploadType extends AbstractType {
             ->add('render_file', FileType::class, [
                 'label' => 'Rendu (fichier)',
                 'required' => false,
-                'mapped' => false
+                'mapped' => false,
+                'help' => 'Attention ! Même si c\'est trompeur, le fait que visuellement le champ du fichier soit vide ne signifie pas pour autant que le champ est réellement vide...'
             ]);
 
         if ($options['is_update'])
